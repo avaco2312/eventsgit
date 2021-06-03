@@ -1,0 +1,13 @@
+{
+    "databasetype": "dynamo",
+    "dbconnection": "root:example@127.0.0.1",
+    "restfulapi_endpoint": ":8071",
+    "endpoint_path": "books",
+    "dbname": "mybooks",
+    "mqueuetype": "sqs",
+    "amqpmessagebroker": "amqp://127.0.0.1:5672",
+    "kafkamessagebroker": "localhost:9092",
+    "mqueueexchange": "events",
+    "mqueuequeue": "eventsqueue",
+    "env": "no"
+}
