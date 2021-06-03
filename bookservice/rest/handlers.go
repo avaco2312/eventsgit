@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"strings"
 
-	"Cloud-libro/Chapter04/yo/bookservice/store"
+	"https://github.com/avaco2312/eventsgit/bookservice/store"
 
 	"github.com/gorilla/mux"
 )
