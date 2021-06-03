@@ -5,12 +5,10 @@ import (
 	"fmt"
 	"log"
 	"os"
-
-	"Cloud-libro/Chapter02/myevents/yo/store"
 )
 
 const (
-	DBTypeDefault              = store.Mongo
+	DBTypeDefault              = "mongo" // "mongo" or "dynamo"
 	DBConnectionDefault        = "root:example@127.0.0.1"
 	RestfulEndpointDefault     = ":8070"
 	EndpointPathDefault        = "events"

@@ -5,17 +5,15 @@ import (
 	"fmt"
 	"log"
 	"os"
-
-	"Cloud-libro/Chapter02/myevents/yo/store"
 )
 
 const (
-	DBTypeDefault              = store.Mongo
+	DBTypeDefault              = "mongo" // "mongo" or "dynamo"
 	DBConnectionDefault        = "root:example@127.0.0.1"
 	RestfulEndpointDefault     = "localhost:8071"
 	EndpointPathDefault        = "books"
 	DbNameDefault              = "mybooks"
-	MQueueTypeDefault          = "kafka" // "amqp" or "kafka"
+	MQueueTypeDefault          = "kafka" // "amqp" or "kafka" or "sqs"
 	AMQPMessageBrokerDefault   = "amqp://127.0.0.1:5672"
 	KafkaMessageBrokersDefault = "localhost:9092"
 	MQueueExchangeDefault      = "events"
