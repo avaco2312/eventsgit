@@ -1,0 +1,15 @@
+sudo: required
+services:
+  - docker
+language: go
+go: master
+env:
+  global:
+    - CGO_ENABLED=0 GO111MODULE=on
+  matrix:
+    - MYSERVICE=eventservice
+    - MYSERVICE=bookservice
+script:
+  - echo $DOCKER_USERNAME
+  - echo $DOCKER_PASSWORD
+  - docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
