@@ -2,4 +2,5 @@ sudo: required
 services:
   - docker
 script:
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin registry.example.com
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
+
