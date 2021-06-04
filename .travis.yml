@@ -2,11 +2,10 @@ language: go
 go: 1.16
 env:
   global:
-    - CGO_ENABLED = 0 GO111MODULE=on
+    - CGO_ENABLED=0 GO111MODULE=on
   matrix:
-    - MYSERVICE = eventservice
-    - MYSERVICE = bookservice
-install: true
+    - MYSERVICE=eventservice
+    - MYSERVICE=bookservice
 script: 
   - echo $MYSERVICE
   - pwd
