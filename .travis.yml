@@ -12,9 +12,9 @@ env:
 install: true
 script: 
   - cd $MYSERVICE && go build 
-  - docker image build -t myevents/$MYSERVICE:$TRAVIS_BRANCH .
+  - docker image build -t myevents/$MYSERVICE .
 after_success:
   - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
-  - docker push myevents/$MYSERVICE:$TRAVIS_BRANCH;
+  - docker push myevents/$MYSERVICE
 
 
