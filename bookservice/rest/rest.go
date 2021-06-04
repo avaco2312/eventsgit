@@ -6,7 +6,7 @@ import (
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 
-	"Cloud-libro/Chapter04/yo/bookservice/store"
+	"../store"
 )
 
 func ServeApi(store store.Store, endpoint string, path string) chan error {

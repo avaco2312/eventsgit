@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"log"
 
-	"Cloud-libro/Chapter04/yo/bookservice/store"
-	"Cloud-libro/Chapter04/yo/contracts"
-	"Cloud-libro/Chapter04/yo/msgqueue"
+	"../store"
+	"../../contracts"
+	"../../msgqueue"
 
 	"github.com/mitchellh/mapstructure"
 	"gopkg.in/mgo.v2/bson"
