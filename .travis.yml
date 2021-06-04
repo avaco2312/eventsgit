@@ -13,10 +13,12 @@ env:
 install: true
 script: 
   - pwd
-  - cd $SERVICE && go build
-  - docker image build -t myevents/$SERVICE:$TRAVIS_BRANCH $SERVICE
+  - cd $SERVICE
+  - pwd
+  - go build .
+/*  - docker image build -t myevents/$SERVICE:$TRAVIS_BRANCH $SERVICE
 after_success:
   - if [ -n "${TRAVIS_TAG}" ; then
       docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}";
       docker push myevents/$SERVICE:$TRAVIS_BRANCH;
-    fi
+    fi */
