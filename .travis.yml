@@ -1,19 +1,16 @@
-sudo: required
-services:
-  - docker
 language: go
 go: 1.16
 env:
   global:
-  - CGO_ENABLED = 0
-  - GO111MODULE=on
-  - SERVICE = eventservice
-  - SERVICE = bookservice
+    - CGO_ENABLED = 0 GO111MODULE=on
+  matrix:
+    - MYSERVICE = eventservice
+    - MYSERVICE = bookservice
 install: true
 script: 
-  - echo $SERVICE
+  - echo $MYSERVICE
   - pwd
-  - cd $SERVICE
+  - cd $MYSERVICE
   - pwd
-  - go build
+
 
