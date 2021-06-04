@@ -12,6 +12,7 @@ env:
   - SERVICE = bookservice
 install: true
 script: 
+  - pwd
   - cd $SERVICE && go build
   - docker image build -t myevents/$SERVICE:$TRAVIS_BRANCH $SERVICE
 after_success:
