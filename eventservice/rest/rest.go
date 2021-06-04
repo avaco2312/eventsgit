@@ -3,8 +3,8 @@ package rest
 import (
 	"net/http"
 
-	"Cloud-libro/Chapter04/yo/eventservice/store"
-	"Cloud-libro/Chapter04/yo/msgqueue"
+	"eventsgit/eventservice/store"
+	"eventsgit/msgqueue"
 
 	"github.com/gorilla/mux"
 	"github.com/gorilla/handlers"

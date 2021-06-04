@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"log"
 
-	"../store"
-	"../../contracts"
-	"../../msgqueue"
+	"eventsgit/bookservice/store"
+	"eventsgit/contracts"
+	"eventsgit/msgqueue"
 
 	"github.com/mitchellh/mapstructure"
 	"gopkg.in/mgo.v2/bson"

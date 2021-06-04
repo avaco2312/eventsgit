@@ -4,10 +4,10 @@ import (
 	"flag"
 	"log"
 
-	"Cloud-libro/Chapter04/yo/aws"
-	"Cloud-libro/Chapter04/yo/bookservice/rest"
-	"Cloud-libro/Chapter04/yo/bookservice/store"
-	"Cloud-libro/Chapter04/yo/msgqueue"
+	"eventsgit/aws"
+	"eventsgit/bookservice/rest"
+	"eventsgit/bookservice/store"
+	"eventsgit/msgqueue"
 )
 
 func main() {

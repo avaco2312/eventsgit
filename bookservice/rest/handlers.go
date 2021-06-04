@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"strings"
 
-	"../store"
+	"eventsgit/bookservice/store"
 
 	"github.com/gorilla/mux"
 )

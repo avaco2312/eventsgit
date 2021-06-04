@@ -1,7 +1,7 @@
 package store
 
 import (
-	"Cloud-libro/Chapter04/yo/contracts"
+	"eventsgit/contracts"
 
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"

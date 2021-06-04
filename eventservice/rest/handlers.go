@@ -7,9 +7,9 @@ import (
 	"net/http"
 	"strings"
 
-	"Cloud-libro/Chapter04/yo/contracts"
-	"Cloud-libro/Chapter04/yo/eventservice/store"
-	"Cloud-libro/Chapter04/yo/msgqueue"
+	"eventsgit/contracts"
+	"eventsgit/eventservice/store"
+	"eventsgit/msgqueue"
 
 	"github.com/gorilla/mux"
 )

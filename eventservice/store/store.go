@@ -1,8 +1,8 @@
 package store
 
 import (
-	"Cloud-libro/Chapter04/yo/aws"
-	"Cloud-libro/Chapter04/yo/contracts"
+	"eventsgit/aws"
+	"eventsgit/contracts"
 	"fmt"
 )
 

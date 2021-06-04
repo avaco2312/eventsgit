@@ -1,7 +1,7 @@
 package msgqueue
 
 import (
-	awsses "Cloud-libro/Chapter04/yo/aws"
+	awsses "eventsgit/aws"
 	"encoding/json"
 	"errors"
 	"strings"

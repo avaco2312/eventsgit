@@ -4,8 +4,8 @@ import (
 	"encoding/hex"
 	"encoding/json"
 
-	awsses "Cloud-libro/Chapter04/yo/aws"
-	"Cloud-libro/Chapter04/yo/contracts"
+	awsses "eventsgit/aws"
+	"eventsgit/contracts"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/dynamodb"

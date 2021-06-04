@@ -1,8 +1,8 @@
 package store
 
 import (
-	awsses "Cloud-libro/Chapter04/yo/aws"
-	"Cloud-libro/Chapter04/yo/contracts"
+	awsses "eventsgit/aws"
+	"eventsgit/contracts"
 	"encoding/hex"
 	"encoding/json"
 

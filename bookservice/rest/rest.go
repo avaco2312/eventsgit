@@ -6,7 +6,7 @@ import (
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 
-	"../store"
+	"eventsgit/bookservice/store"
 )
 
 func ServeApi(store store.Store, endpoint string, path string) chan error {
