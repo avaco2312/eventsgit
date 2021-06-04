@@ -1,3 +1,6 @@
+sudo: required
+services:
+  - docker
 language: go
 go: 1.16
 env:
@@ -6,10 +9,13 @@ env:
   matrix:
     - MYSERVICE=eventservice
     - MYSERVICE=bookservice
+install: true
 script: 
-  - echo $MYSERVICE
-  - pwd
-  - cd $MYSERVICE
-  - pwd
-
+  - cd $MYSERVICE && go build
+  - docker image build -t myevents/$MYSERVICE:$TRAVIS_BRANCH $MYSERVICE
+after_success:
+  - if [ -n "${TRAVIS_TAG}" ; then
+      docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}";
+      docker push myevents/$MYSERVICE:$TRAVIS_BRANCH;
+    fi
 
