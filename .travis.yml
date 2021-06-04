@@ -7,11 +7,11 @@ env:
   global:
   - CGO_ENABLED = 0
   - GO111MODULE=on
-  jobs:
   - SERVICE = eventservice
   - SERVICE = bookservice
 install: true
 script: 
+  - echo $SERVICE
   - pwd
   - cd $SERVICE
   - pwd
