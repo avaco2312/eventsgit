@@ -15,7 +15,7 @@ script:
   - docker image build -t myevents/$MYSERVICE:$TRAVIS_BRANCH .
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
   - docker image tag myevents/$MYSERVICE:$TRAVIS_BRANCH $DOCKER_USER/$MYSERVICE:$TRAVIS_BRANCH
-  - docker image push $DOCKER_USER/myevents/$MYSERVICE:$TRAVIS_BRANCH
+  - docker image push $DOCKER_USER/$MYSERVICE:$TRAVIS_BRANCH
 
 
 
