@@ -1,0 +1,28 @@
+stages:
+  - build
+  - dockerbuild
+  - publish
+
+build:eventservice:
+  image: golang:latest
+  stage: build
+  before_script:
+    - cd eventservice
+  script:
+    - CGO_ENABLED=0 GO111MODULE=on go build .
+dockerbuild:eventservice:
+  image: docker:latest
+  stage: dockerbuild
+  dependencies:
+    - build:eventservice
+  script:
+    - docker image build -t avaco/myevents:gitlab .
+publish:
+  image: docker:17.04.0-ce
+  stage: publish
+  dependencies:
+    - dockerbuild:eventservice
+  before_script:
+    - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+  script:
+    - docker image push avaco/myevents:gitlab
