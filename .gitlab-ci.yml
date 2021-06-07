@@ -22,12 +22,35 @@ dockerbuild:eventservice:
     - build:eventservice
   script:
     - docker image build -t avaco/myevents:gitlab eventservice
+
+build:bookservice:
+  image: golang:latest
+  stage: build
+  before_script:
+    - cd bookservice
+  script:
+    - CGO_ENABLED=0 GO111MODULE=on go build .
+  artifacts:
+    paths:
+      - eventservice/bookservice
+      - eventservice/config.json
+      - eventservice/Dockerfile
+dockerbuild:bookservice:
+  image: docker:17.04.0-ce
+  stage: dockerbuild
+  dependencies:
+    - build:bookservice
+  script:
+    - docker image build -t avaco/mybooks:gitlab bookservice
+
 publish:
   image: docker:17.04.0-ce
   stage: publish
   dependencies:
     - dockerbuild:eventservice
+    - dockerbuild:bookservice
   before_script:
     - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
   script:
     - docker image push avaco/myevents:gitlab
+    - docker image push avaco/mybooks:gitlab
