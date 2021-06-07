@@ -32,9 +32,9 @@ build:bookservice:
     - CGO_ENABLED=0 GO111MODULE=on go build .
   artifacts:
     paths:
-      - eventservice/bookservice
-      - eventservice/config.json
-      - eventservice/Dockerfile
+      - bookservice/bookservice
+      - bookservice/config.json
+      - bookservice/Dockerfile
 dockerbuild:bookservice:
   image: docker:17.04.0-ce
   stage: dockerbuild
