@@ -10,11 +10,11 @@ build:eventservice:
     - cd eventservice
   script:
     - CGO_ENABLED=0 GO111MODULE=on go build .
-artifacts:
-  paths:
-    - eventservice/eventservice
-    - eventservice/config.json
-    - eventservice/Dockerfile
+  artifacts:
+    paths:
+      - eventservice/eventservice
+      - eventservice/config.json
+      - eventservice/Dockerfile
 dockerbuild:eventservice:
   image: docker:17.04.0-ce
   stage: dockerbuild
