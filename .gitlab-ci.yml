@@ -10,13 +10,17 @@ build:eventservice:
     - cd eventservice
   script:
     - CGO_ENABLED=0 GO111MODULE=on go build .
+artifacts:
+  paths:
+    - ./eventservice
+    - ./config.json
 dockerbuild:eventservice:
-  image: docker:latest
+  image: docker:17.04.0-ce
   stage: dockerbuild
   dependencies:
     - build:eventservice
   script:
-    - docker image build -t avaco/myevents:gitlab .
+    - docker image build -t avaco/myevents:gitlab eventservice
 publish:
   image: docker:17.04.0-ce
   stage: publish
