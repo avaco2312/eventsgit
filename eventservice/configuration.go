@@ -21,16 +21,16 @@ const (
 type ServiceConfig struct {
 	dbType          string 
 	dbConnection    string 
-	RestfulEndpoint string 
+	restfulEndpoint string 
 	endpointPath    string 
 	dbName          string 
 	queueType       string 
 	queueExchange   string 
-	Env             string 
+	env             string 
 	queueDriver     string 
 }
 
-func ExtractConfiguration(filename string) (ServiceConfig, error) {
+func ExtractConfiguration() (ServiceConfig, error) {
 	conf := ServiceConfig{
 		dbTypeDefault,
 		dbConnectionDefault,
@@ -61,9 +61,9 @@ func ExtractConfiguration(filename string) (ServiceConfig, error) {
 		conf.queueExchange = s
 	}
 	if s, ok := os.LookupEnv("RUN_ENV"); ok {
-		conf.Env = s
+		conf.env = s
 	}
-	switch conf.Env {
+	switch conf.env {
 	case "local":
 		switch conf.dbType {
 		case "mongo":

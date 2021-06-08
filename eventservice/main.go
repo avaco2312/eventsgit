@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"log"
 
 	"eventsgit/eventservice/rest"
@@ -10,9 +9,7 @@ import (
 )
 
 func main() {
-	confPath := flag.String("conf", "config.json", "flag to set the configuration json file")
-	flag.Parse()
-	sConf, err := ExtractConfiguration(*confPath)
+	sConf, err := ExtractConfiguration()
 	if err != nil {
 		log.Fatalf("error: imposible cargar configuración: %v", err)
 	}
@@ -24,6 +21,6 @@ func main() {
 	if err != nil {
 		log.Fatalf("error: imposible conectar MQueue: %v", err)
 	}
-	cherr := rest.ServeApi(store, emitter, sConf.RestfulEndpoint, sConf.endpointPath)
+	cherr := rest.ServeApi(store, emitter, sConf.restfulEndpoint, sConf.endpointPath)
 	<-cherr
 }
