@@ -1,10 +1,10 @@
 {
-    "databasetype": "mongo",
+    "databasetype": "dynamo",
     "dbconnection": "",
     "restfulapi_endpoint": ":8070",
     "endpoint_path": "events",
     "dbname": "myevents",
-    "mqueuetype": "kafka",
+    "mqueuetype": "sqs",
     "mqueueexchange": "events",
     "env": "local",
     "driver": ""

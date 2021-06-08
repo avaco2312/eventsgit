@@ -1,134 +1,147 @@
 package main
 
 import (
-	"encoding/json"
 	"eventsgit/aws"
 	"fmt"
 	"os"
 )
 
 const (
-	DBTypeDefault          = "mongo" // "mongo" or "dynamo"
-	DBConnectionDefault    = ""
-	RestfulEndpointDefault = ":8070"
-	EndpointPathDefault    = "events"
-	DbNameDefault          = "myevents"
-	MQueueTypeDefault      = "kafka" // "amqp" or "kafka" or "sqs"
-	MQueueExchangeDefault  = "events"
-	EnvDefault             = "local" // local, docker, kubernet
-	MQueueDriverDefault    = ""
+	dbTypeDefault          = "mongo" // "mongo" or "dynamo"
+	dbConnectionDefault    = ""
+	restfulEndpointDefault = ":8070"
+	endpointPathDefault    = "events"
+	dbNameDefault          = "myevents"
+	queueTypeDefault       = "kafka" // "amqp" or "kafka" or "sqs"
+	queueExchangeDefault   = "events"
+	envDefault             = "local" // local, docker, kubernet
+	queueDriverDefault     = ""
 )
 
 type ServiceConfig struct {
-	DBType          string `json:"databasetype"`
-	DBConnection    string `json:"dbconnection"`
-	RestfulEndpoint string `json:"restfulapi_endpoint"`
-	EndpointPath    string `json:"endpoint_path"`
-	DbName          string `json:"dbname"`
-	MQueueType      string `json:"mqueuetype"`
-	MQueueExchange  string `json:"mqueueexchange"`
-	Env             string `json:"env"`
-	MQueueDriver    string `json:"driver"`
+	dbType          string 
+	dbConnection    string 
+	RestfulEndpoint string 
+	endpointPath    string 
+	dbName          string 
+	queueType       string 
+	queueExchange   string 
+	Env             string 
+	queueDriver     string 
 }
 
 func ExtractConfiguration(filename string) (ServiceConfig, error) {
 	conf := ServiceConfig{
-		DBTypeDefault,
-		DBConnectionDefault,
-		RestfulEndpointDefault,
-		EndpointPathDefault,
-		DbNameDefault,
-		MQueueTypeDefault,
-		MQueueExchangeDefault,
-		EnvDefault,
-		MQueueDriverDefault,
+		dbTypeDefault,
+		dbConnectionDefault,
+		restfulEndpointDefault,
+		endpointPathDefault,
+		dbNameDefault,
+		queueTypeDefault,
+		queueExchangeDefault,
+		envDefault,
+		queueDriverDefault,
 	}
-	file, err := os.Open(filename)
-	if err == nil {
-		err = json.NewDecoder(file).Decode(&conf)
-		if err != nil {
-			return conf, err
-		}
+	if s, ok := os.LookupEnv("DB_TYPE"); ok {
+		conf.dbType = s
+	}
+	if s, ok := os.LookupEnv("REST_ENDPOINT"); ok {
+		conf.endpointPath = s
+	}
+	if s, ok := os.LookupEnv("ENDPOINT_PATH"); ok {
+		conf.endpointPath = s
+	}
+	if s, ok := os.LookupEnv("DB_NAME"); ok {
+		conf.dbName = s
+	}
+	if s, ok := os.LookupEnv("QUEUE_TYPE"); ok {
+		conf.queueType = s
+	}
+	if s, ok := os.LookupEnv("QUEUE_EXCHANGE"); ok {
+		conf.queueExchange = s
+	}
+	if s, ok := os.LookupEnv("RUN_ENV"); ok {
+		conf.Env = s
 	}
 	switch conf.Env {
 	case "local":
-		switch conf.DBType {
+		switch conf.dbType {
 		case "mongo":
-			conf.DBConnection = "root:example@localhost"
+			conf.dbConnection = "root:example@localhost"
 		case "dynamo":
-			conf.DBConnection = ""
-			err = aws.SetSession()
+			conf.dbConnection = ""
+			err := aws.SetSession()
 			if err != nil {
 				return conf, fmt.Errorf("error: Imposible conectar AWS: %v", err)
 			}
 		default:
-			return conf, fmt.Errorf("error: Unknown Database type %s", conf.DBType)
+			return conf, fmt.Errorf("error: Unknown Database type %s", conf.dbType)
 		}
-		switch conf.MQueueType {
+		switch conf.queueType {
 		case "amqp":
-			conf.MQueueDriver = "amqp://localhost:5672"
+			conf.queueDriver = "amqp://localhost:5672"
 		case "kafka":
-			conf.MQueueDriver = "localhost:9092"
+			conf.queueDriver = "localhost:9092"
 		case "sqs":
-			conf.MQueueDriver = ""
-			err = aws.SetSession()
+			conf.queueDriver = ""
+			err := aws.SetSession()
 			if err != nil {
 				return conf, fmt.Errorf("error: Imposible conectar AWS: %v", err)
 			}
 		default:
-			return conf, fmt.Errorf("error: Unknown MQueue type %s", conf.MQueueType)
+			return conf, fmt.Errorf("error: Unknown MQueue type %s", conf.queueType)
 		}
 	case "docker":
-		switch conf.DBType {
+		switch conf.dbType {
 		case "mongo":
-			conf.DBConnection = "root:example@mongo"
+			conf.dbConnection = "root:example@mongo"
 		case "dynamo":
-			conf.DBConnection = ""
-			err = aws.SetSession()
+			conf.dbConnection = ""
+			err := aws.SetSession()
 			if err != nil {
 				return conf, fmt.Errorf("error: Imposible conectar AWS: %v", err)
 			}
 		default:
-			return conf, fmt.Errorf("error: Unknown Database type %s", conf.DBType)
+			return conf, fmt.Errorf("error: Unknown Database type %s", conf.dbType)
 		}
-		switch conf.MQueueType {
+		switch conf.queueType {
 		case "amqp":
-			conf.MQueueDriver = "amqp://rabitmq:5672"
+			conf.queueDriver = "amqp://rabitmq:5672"
 		case "kafka":
-			conf.MQueueDriver = "kafka:9092"
+			conf.queueDriver = "kafka:9092"
 		case "sqs":
-			conf.MQueueDriver = ""
-			err = aws.SetSession()
+			conf.queueDriver = ""
+			err := aws.SetSession()
 			if err != nil {
 				return conf, fmt.Errorf("error: Imposible conectar AWS: %v", err)
 			}
 		default:
-			return conf, fmt.Errorf("error: Unknown MQueue type %s", conf.MQueueType)
+			return conf, fmt.Errorf("error: Unknown MQueue type %s", conf.queueType)
 		}
 	case "kubernet":
-		switch conf.DBType {
+		switch conf.dbType {
 		case "mongo":
-			conf.DBConnection = "root:example@" + os.Getenv("MONGO_SERVICE_HOST")
+			conf.dbConnection = "root:example@" + os.Getenv("MONGO_SERVICE_HOST")
 		case "dynamo":
-			conf.DBConnection = ""
-			err = aws.SetSession()
+			conf.dbConnection = ""
+			err := aws.SetSession()
 			if err != nil {
 				return conf, fmt.Errorf("error: Imposible conectar AWS: %v", err)
 			}
 		}
-		switch conf.MQueueType {
+		switch conf.queueType {
 		case "amqp":
-			conf.MQueueDriver = "amqp://" + os.Getenv("AMQP_SERVICE_HOST") + ":5672"
+			conf.queueDriver = "amqp://" + os.Getenv("AMQP_SERVICE_HOST") + ":5672"
 		case "kafka":
-			conf.MQueueDriver = os.Getenv("KAFKA_SERVICE_HOST") + ":9092"
+			conf.queueDriver = os.Getenv("KAFKA_SERVICE_HOST") + ":9092"
 		case "sqs":
-			conf.MQueueDriver = ""
-			err = aws.SetSession()
+			conf.queueDriver = ""
+			err := aws.SetSession()
 			if err != nil {
 				return conf, fmt.Errorf("error: Imposible conectar AWS: %v", err)
 			}
 		default:
-			return conf, fmt.Errorf("error: Unknown MQueue type %s", conf.MQueueType)
+			return conf, fmt.Errorf("error: Unknown MQueue type %s", conf.queueType)
 		}
 	}
 	return conf, nil

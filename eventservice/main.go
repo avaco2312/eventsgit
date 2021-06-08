@@ -16,14 +16,14 @@ func main() {
 	if err != nil {
 		log.Fatalf("error: imposible cargar configuración: %v", err)
 	}
-	store, err := store.NewStore(sConf.DBType, sConf.DBConnection, sConf.DbName)
+	store, err := store.NewStore(sConf.dbType, sConf.dbConnection, sConf.dbName)
 	if err != nil {
 		log.Fatalf("error: imposible conectar la BD: %v", err)
 	}
-	emitter, err := msgqueue.NewEventEmitter(sConf.MQueueType, sConf.MQueueDriver, sConf.MQueueExchange)
+	emitter, err := msgqueue.NewEventEmitter(sConf.queueType, sConf.queueDriver, sConf.queueExchange)
 	if err != nil {
 		log.Fatalf("error: imposible conectar MQueue: %v", err)
 	}
-	cherr := rest.ServeApi(store, emitter, sConf.RestfulEndpoint, sConf.EndpointPath)
+	cherr := rest.ServeApi(store, emitter, sConf.RestfulEndpoint, sConf.endpointPath)
 	<-cherr
 }
