@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"eventsgit/aws"
 	"fmt"
-	"log"
 	"os"
 )
 
@@ -45,13 +44,11 @@ func ExtractConfiguration(filename string) (ServiceConfig, error) {
 		MQueueDriverDefault,
 	}
 	file, err := os.Open(filename)
-	if err != nil {
-		log.Println("Configuration file not found. Continuing with default values.")
-		return conf, nil
-	}
-	err = json.NewDecoder(file).Decode(&conf)
-	if err != nil {
-		return conf, err
+	if err == nil {
+		err = json.NewDecoder(file).Decode(&conf)
+		if err != nil {
+			return conf, err
+		}
 	}
 	switch conf.Env {
 	case "local":
