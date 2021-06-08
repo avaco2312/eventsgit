@@ -9,7 +9,7 @@ import (
 const (
 	dbTypeDefault          = "mongo" // "mongo" or "dynamo"
 	dbConnectionDefault    = ""
-	restfulEndpointDefault = ":8070"
+	restfulEndpointDefault = ":8071"
 	endpointPathDefault    = "events"
 	dbNameDefault          = "myevents"
 	queueTypeDefault       = "kafka" // "amqp" or "kafka" or "sqs"
