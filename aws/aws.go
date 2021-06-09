@@ -1,6 +1,7 @@
 package aws
 
 import (
+	awsp "github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 )
 
@@ -11,8 +12,8 @@ func SetSession() error {
 	if Sesion != nil {
 		return nil
 	}
-	Sesion, err = session.NewSessionWithOptions(session.Options{
-		SharedConfigState: session.SharedConfigEnable,
+	Sesion, err = session.NewSession(&awsp.Config{
+		Region: awsp.String("us-west-2"),
 	})
 	return err
 }

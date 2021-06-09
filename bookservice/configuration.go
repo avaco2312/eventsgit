@@ -7,12 +7,12 @@ import (
 )
 
 const (
-	dbTypeDefault          = "mongo" // "mongo" or "dynamo"
+	dbTypeDefault          = "dynamo" // "mongo" or "dynamo"
 	dbConnectionDefault    = ""
 	restfulEndpointDefault = ":8071"
 	endpointPathDefault    = "books"
 	dbNameDefault          = "mybooks"
-	queueTypeDefault       = "kafka" // "amqp" or "kafka" or "sqs"
+	queueTypeDefault       = "sqs" // "amqp" or "kafka" or "sqs"
 	queueExchangeDefault   = "events"
 	queueQueueDefault      = "eventsqueue"
 	envDefault             = "local" // local, docker, kubernet

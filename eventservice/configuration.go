@@ -7,12 +7,12 @@ import (
 )
 
 const (
-	dbTypeDefault          = "mongo" // "mongo" or "dynamo"
+	dbTypeDefault          = "dynamo" // "mongo" or "dynamo"
 	dbConnectionDefault    = ""
 	restfulEndpointDefault = ":8070"
 	endpointPathDefault    = "events"
 	dbNameDefault          = "myevents"
-	queueTypeDefault       = "kafka" // "amqp" or "kafka" or "sqs"
+	queueTypeDefault       = "sqs" // "amqp" or "kafka" or "sqs"
 	queueExchangeDefault   = "events"
 	envDefault             = "local" // local, docker, kubernet
 	queueDriverDefault     = ""
@@ -99,6 +99,7 @@ func ExtractConfiguration() (ServiceConfig, error) {
 			conf.dbConnection = ""
 			err := aws.SetSession()
 			if err != nil {
+				fmt.Printf("%v %s\n", err, err.Error())
 				return conf, fmt.Errorf("error: Imposible conectar AWS: %v", err)
 			}
 		default:
@@ -113,6 +114,7 @@ func ExtractConfiguration() (ServiceConfig, error) {
 			conf.queueDriver = ""
 			err := aws.SetSession()
 			if err != nil {
+				fmt.Printf("%v %s\n", err, err.Error())
 				return conf, fmt.Errorf("error: Imposible conectar AWS: %v", err)
 			}
 		default:

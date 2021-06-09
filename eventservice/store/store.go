@@ -1,7 +1,6 @@
 package store
 
 import (
-	"eventsgit/aws"
 	"eventsgit/contracts"
 	"fmt"
 )
@@ -20,10 +19,7 @@ func NewStore(dbType string, connString string, db string) (Store, error) {
 	case "mongo":
 		st, err = NewMongoStore(connString, db)
 	case "dynamo":
-		err = aws.SetSession()
-		if err == nil {
 			st, err = NewDynamoStore(db)
-		}
 	default:
 		return nil, fmt.Errorf("error: Unknown DB driver %s", dbType)
 	}
