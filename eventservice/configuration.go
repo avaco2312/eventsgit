@@ -107,7 +107,7 @@ func ExtractConfiguration() (ServiceConfig, error) {
 		}
 		switch conf.queueType {
 		case "amqp":
-			conf.queueDriver = "amqp://rabitmq:5672"
+			conf.queueDriver = "amqp://rabbitmq:5672"
 		case "kafka":
 			conf.queueDriver = "kafka:9092"
 		case "sqs":
@@ -121,30 +121,8 @@ func ExtractConfiguration() (ServiceConfig, error) {
 			return conf, fmt.Errorf("error: Unknown MQueue type %s", conf.queueType)
 		}
 	case "kubernet":
-		switch conf.dbType {
-		case "mongo":
-			conf.dbConnection = "root:example@" + os.Getenv("MONGO_SERVICE_HOST")
-		case "dynamo":
-			conf.dbConnection = ""
-			err := aws.SetSession()
-			if err != nil {
-				return conf, fmt.Errorf("error: Imposible conectar AWS: %v", err)
-			}
-		}
-		switch conf.queueType {
-		case "amqp":
-			conf.queueDriver = "amqp://" + os.Getenv("AMQP_SERVICE_HOST") + ":5672"
-		case "kafka":
-			conf.queueDriver = os.Getenv("KAFKA_SERVICE_HOST") + ":9092"
-		case "sqs":
-			conf.queueDriver = ""
-			err := aws.SetSession()
-			if err != nil {
-				return conf, fmt.Errorf("error: Imposible conectar AWS: %v", err)
-			}
-		default:
-			return conf, fmt.Errorf("error: Unknown MQueue type %s", conf.queueType)
-		}
+		conf.dbConnection = "root:example@" + os.Getenv("MONGO_SERVICE_HOST")
+		conf.queueDriver = os.Getenv("KAFKA_SERVICE_HOST") + ":9092"
 	}
 	return conf, nil
 }
