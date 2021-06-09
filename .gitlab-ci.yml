@@ -66,4 +66,4 @@ deploy:
     - docker run -d --network myevents -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=example --name mongo mongo
     - docker run -d --network myevents -e KAFKA_BROKER_ID=1 -e KAFKA_CFG_LISTENERS=PLAINTEXT://:9092 -e KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092 -e KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181 -e ALLOW_PLAINTEXT_LISTENER=yes --name kafka bitnami/kafka:latest
     - docker run -d --network myevents --name myevents -p 8070:8070 -e DB_TYPE=mongo -e QUEUE_TYPE=kafka -e RUN_ENV=docker avaco/myevents:gitlab
-    - docker run -d --network myevents --name mybooks -p 8070:8070 -e DB_TYPE=mongo -e QUEUE_TYPE=kafka -e RUN_ENV=docker avaco/mybooks:gitlab
+    - docker run -d --network myevents --name mybooks -p 8071:8071 -e DB_TYPE=mongo -e QUEUE_TYPE=kafka -e RUN_ENV=docker avaco/mybooks:gitlab
