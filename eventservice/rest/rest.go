@@ -6,11 +6,17 @@ import (
 	"eventsgit/eventservice/store"
 	"eventsgit/msgqueue"
 
-	"github.com/gorilla/mux"
 	"github.com/gorilla/handlers"
+	"github.com/gorilla/mux"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 func ServeApi(store store.Store, emitter msgqueue.EventEmitter, endpoint string, path string) chan error {
+	go func() {
+		h := http.NewServeMux()
+		h.Handle("/metrics", promhttp.Handler())
+		http.ListenAndServe(":9100", h)
+	}()
 	handler, _ := NewHandler(store, emitter)
 	r := mux.NewRouter()
 	eventsRouter := r.PathPrefix("/" + path).Subrouter()

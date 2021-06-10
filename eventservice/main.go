@@ -3,13 +3,10 @@ package main
 import (
 	"fmt"
 	"log"
-	"net/http"
 
 	"eventsgit/eventservice/rest"
 	"eventsgit/eventservice/store"
 	"eventsgit/msgqueue"
-
-	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 func main() {
@@ -27,11 +24,6 @@ func main() {
 		fmt.Println(err, " ", err.Error())
 		log.Fatalf("error: imposible conectar MQueue: %v", err)
 	}
-	go func() {
-		h:=http.NewServeMux()
-		h.Handle("/metrics", promhttp.Handler())
-		http.ListenAndServe(":9100", h)
-	}()
 	cherr := rest.ServeApi(store, emitter, sConf.restfulEndpoint, sConf.endpointPath)
 	<-cherr
 }

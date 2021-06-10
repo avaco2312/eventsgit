@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
+	"time"
 
 	"eventsgit/contracts"
 	"eventsgit/eventservice/store"
@@ -89,6 +90,7 @@ func (h *handler) searchAll(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *handler) addEvent(w http.ResponseWriter, r *http.Request) {
+	now := time.Now()
 	w.Header().Set("Content-Type", "application/json;charset=utf8")
 	event := contracts.Event{}
 	err := json.NewDecoder(r.Body).Decode(&event)
@@ -104,4 +106,6 @@ func (h *handler) addEvent(w http.ResponseWriter, r *http.Request) {
 	}
 	h.emitter.Emit(contracts.EventCreated{Event: &event})
 	fmt.Fprintf(w, `{"id":"%x"}`, id.(string))
+	eventsAddCount.Inc()
+	delayAddCount.Observe(float64(time.Since(now)))
 }
