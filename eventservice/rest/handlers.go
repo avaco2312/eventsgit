@@ -106,6 +106,5 @@ func (h *handler) addEvent(w http.ResponseWriter, r *http.Request) {
 	}
 	h.emitter.Emit(contracts.EventCreated{Event: &event})
 	fmt.Fprintf(w, `{"id":"%x"}`, id.(string))
-	eventsAddCount.Inc()
-	delayAddCount.Observe(float64(time.Since(now)))
+	eventsAddDelay.Observe(float64(time.Since(now))/1e6)
 }

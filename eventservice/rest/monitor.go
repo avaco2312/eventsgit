@@ -4,24 +4,15 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 )
 
-var eventsAddCount = prometheus.NewCounter(
-	prometheus.CounterOpts{
-		Name: "events_add_count",
-		Namespace: "myevents",
-		Help: "Amount of events created",
-	},
-)
-
-var delayAddCount = prometheus.NewHistogram(
+var eventsAddDelay = prometheus.NewSummary(
 	prometheus.HistogramOpts{
-		Name: "events_add_count",
+		Name:      "events_add_delay",
 		Namespace: "myevents",
-		Help: "Delay of events created",
-		Buckets: []float64{10,50,100},	
+		Help:      "Delay of events created",
+		Buckets:   []float64{500, 800, 1000, 2000},
 	},
 )
 
 func init() {
-	prometheus.MustRegister(eventsAddCount)
-	prometheus.MustRegister(delayAddCount)
+	prometheus.Register(eventsAddDelay)
 }
