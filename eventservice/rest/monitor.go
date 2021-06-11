@@ -4,7 +4,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 )
 
-var eventsAddDelay = prometheus.NewSummary(
+var eventsAddDelay = prometheus.NewHistogram(
 	prometheus.HistogramOpts{
 		Name:      "events_add_delay",
 		Namespace: "myevents",
