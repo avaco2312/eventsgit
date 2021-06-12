@@ -12,7 +12,7 @@ import (
 
 func ServeApi(store store.Store, endpoint string, path string) chan error {
 	go func() {
-		h := http.NewServeMux()
+		h := mux.NewRouter()
 		h.Handle("/metrics", promhttp.Handler())
 		http.ListenAndServe(":9101", handlers.CORS()(h))
 	}()
