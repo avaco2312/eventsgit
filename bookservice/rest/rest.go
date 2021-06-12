@@ -5,12 +5,17 @@ import (
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 
 	"eventsgit/bookservice/store"
 )
 
 func ServeApi(store store.Store, endpoint string, path string) chan error {
-
+	go func() {
+		h := http.NewServeMux()
+		h.Handle("/metrics", promhttp.Handler())
+		http.ListenAndServe(":9100", handlers.CORS()(h))
+	}()
 	handler, _ := NewHandler(store)
 	r := mux.NewRouter()
 	eventsRouter := r.PathPrefix("/" + path).Subrouter()
@@ -22,5 +27,4 @@ func ServeApi(store store.Store, endpoint string, path string) chan error {
 		//cherr <- http.ListenAndServeTLS(endpoint, "cert.pem", "key.pem", r)
 	}()
 	return cherr
-
 }

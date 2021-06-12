@@ -15,7 +15,7 @@ func ServeApi(store store.Store, emitter msgqueue.EventEmitter, endpoint string,
 	go func() {
 		h := http.NewServeMux()
 		h.Handle("/metrics", promhttp.Handler())
-		http.ListenAndServe(":9100", h)
+		http.ListenAndServe(":9100", handlers.CORS()(h))
 	}()
 	handler, _ := NewHandler(store, emitter)
 	r := mux.NewRouter()

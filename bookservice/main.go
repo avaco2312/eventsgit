@@ -2,13 +2,10 @@ package main
 
 import (
 	"log"
-	"net/http"
 
 	"eventsgit/bookservice/rest"
 	"eventsgit/bookservice/store"
 	"eventsgit/msgqueue"
-
-	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 func main() {
@@ -27,11 +24,6 @@ func main() {
 	}
 	go func() {
 		processor.ProcessEvents()
-	}()
-	go func() {
-		h := http.NewServeMux()
-		h.Handle("/metrics", promhttp.Handler())
-		http.ListenAndServe(":9100", h)
 	}()
 	cherr := rest.ServeApi(store, sConf.restfulEndpoint, sConf.endpointPath)
 	<-cherr
